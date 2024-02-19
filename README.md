@@ -28,7 +28,7 @@ paths:
             type: string
             default: search_it_with_gpt
         - in: query
-          name: q
+          name: search
           required: true
           description: Suchbegriff, bestehend aus 1-2 Wörtern.
           schema:

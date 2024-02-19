@@ -9,13 +9,6 @@ requires:
         version: '>8.1,<9'
     redaxo: ^5.16
 
-
-
-page:
-    title: translate:search_it_with_gpt_title
-    prio: 100
-    icon: rex-icon fa-gear
-
 pages:
     search_it/with_gpt:
         title: translate:search_it_with_gpt_title

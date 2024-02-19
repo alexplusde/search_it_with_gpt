@@ -1,7 +1,5 @@
 <?php
 
-echo rex_view::title(rex_i18n::msg('search_it_with_gpt_title'));
-
 $addon = rex_addon::get('search_it_with_gpt');
 
 $form = rex_config_form::factory($addon->getName());
