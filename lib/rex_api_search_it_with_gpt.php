@@ -15,7 +15,6 @@ class rex_api_search_it_with_gpt extends rex_api_function
 
     public function execute()
     {
-        rex::setProperty('debug', true);
 
         if (!rex_server('HTTP_X_SEARCHITWITHGPT_TOKEN')) {
             header('HTTP/1.0 401 Unauthorized');
