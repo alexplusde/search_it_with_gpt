@@ -75,14 +75,14 @@ class rex_api_search_it_with_gpt extends rex_api_function
                         'title' => $article->getTitle(),
                         'url' => $hit_server.rex_getUrl($hit['fid'], $hit['clang']),
                         'teaser' => $hit['highlightedtext'],
-                        'content' => $content
+                        'content' => $content,
                     ];
                 }
             }
             if ('url' == $hit['type'] && rex_request::get('url', 'string', false)) {
                 $article = rex_article::get($hit['fid']);
 
-                    // url hits
+                // url hits
 				$url_sql = rex_sql::factory();
 				$url_sql->setTable(search_it_getUrlAddOnTableName());
 				$url_sql->setWhere(['url_hash' => $hit['fid']]);
