@@ -135,10 +135,6 @@ security:
   - ApiKeyAuth: []
 ```
 
-### Einstellungs-Seite
-
-Beginne mit einem Konfigurations-Formular, das bereits best practice in REDAXO umsetzt - mit Links zu den wichtigsten API-Docs.
-
 ## Lizenz
 
 MIT Lizenz, siehe [LICENSE.md](https://github.com/alexplusde/search_it_with_gpt/blob/master/LICENSE.md)  
