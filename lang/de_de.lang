@@ -1,10 +1,7 @@
-search_it_with_gpt_title = search_it_with_gpt
+search_it_with_gpt_title = OpenAPI für GPT
 
-search_it_with_gpt_table = search_it_with_gpt
 search_it_with_gpt_settings = Einstellungen
 search_it_with_gpt_docs = Hilfe
-
-# FriendsOfREDAXO-Addons können bei YTraduco zur Übersetzung eingereicht werden
 
 # Konfigurationsformulare
 search_it_with_gpt_config = Einstellungen
