@@ -10,16 +10,15 @@ class rex_api_search_it_with_gpt extends rex_api_function
             header('HTTP/1.0 401 Unauthorized');
             echo 'Authentifizierung erforderlich';
             exit;
-        } else {
-            // Extrahieren des Tokens aus dem Authorization Header
-            list($tokenType, $token) = explode(' ', rex_server('HTTP_AUTHORIZATION'), 2);
-            if (strcasecmp($tokenType, 'Bearer') != 0 || $token !== rex_config::get('search_it_with_gpt', 'token')) {
-                header('HTTP/1.0 403 Forbidden');
-                echo 'Ungültiger API-Key';
-                exit;
-            }
         }
-        
+        // Extrahieren des Tokens aus dem Authorization Header
+        [$tokenType, $token] = explode(' ', rex_server('HTTP_AUTHORIZATION'), 2);
+        if (0 != strcasecmp($tokenType, 'Bearer') || $token !== rex_config::get('search_it_with_gpt', 'token')) {
+            header('HTTP/1.0 403 Forbidden');
+            echo 'Ungültiger API-Key';
+            exit;
+        }
+
         // Sicherstellen, dass der Content-Type Header gesetzt ist
         header('Content-Type: application/json; charset=UTF-8');
 
