@@ -1,5 +1,18 @@
 <?php
 
+namespace alexplusde\search_it_with_gpt;
+
+use rex;
+use rex_api_function;
+use rex_config;
+use search_it;
+use rex_article;
+use rex_article_content;
+use rex_sql;
+use rex_addon;
+use rex_yrewrite;
+use rex_request;
+
 class rex_api_search_it_with_gpt extends rex_api_function
 {
     protected $published = true; // Erlaubt den Aufruf aus dem Frontend
@@ -61,13 +74,14 @@ class rex_api_search_it_with_gpt extends rex_api_function
         foreach ($hits as $hit) {
             if ('article' == $hit['type']) {
                 $article = rex_article::get($hit['fid']);
-                $articleContent = new rex_article_content($article->getId());
-                $content = $articleContent->getArticle(1); // 1 ist die ID des Slices, den Sie abrufen möchten
-
+                
                 if ($article instanceof rex_article) {
+                    $yrewrite = new \rex_yrewrite_seo($article);
+                    $articleContent = new rex_article_content($article->getId());
+                    $content = $articleContent->getArticle();
                     $formattedResults[] = [
-                        'title' => $article->getTitle(),
-                        'url' => $server . rex_getUrl($hit['fid'], $hit['clang']),
+                        'title' => $yrewrite->getTitle('name'),
+                        'url' => rex_yrewrite::getFullPath(rex_getUrl($hit['fid'], $hit['clang'])),
                         'teaser' => $hit['highlightedtext'],
                         'content' => $content,
                     ];
@@ -78,7 +92,7 @@ class rex_api_search_it_with_gpt extends rex_api_function
 
                 // url hits
                 $url_sql = rex_sql::factory();
-                $url_sql->setTable(search_it_getUrlAddOnTableName());
+                $url_sql->setTable(\search_it_getUrlAddOnTableName());
                 $url_sql->setWhere(['url_hash' => $hit['fid']]);
                 if ($url_sql->select('article_id, clang_id, profile_id, data_id, seo')) {
                     if ($url_sql->getRows() > 0) {
@@ -89,7 +103,7 @@ class rex_api_search_it_with_gpt extends rex_api_function
                         }
 
                         $formattedResults[] = [
-                            'title' => url_info['title'],
+                            'title' => $url_info['title'],
                             'url' => $hit_link,
                             'teaser' => $hit['highlightedtext'],
                             'content' => $content,
