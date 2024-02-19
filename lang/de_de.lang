@@ -5,5 +5,5 @@ search_it_with_gpt_docs = Hilfe
 
 # Konfigurationsformulare
 search_it_with_gpt_config = Einstellungen
-search_it_with_gpt_config_token_label = Bearer Token
-search_it_with_gpt_config_token_notice = Definiere einen API-Schlüssel, der für die Kommunikation mit der GPT-Schnittstelle verwendet wird. Diesen im GPT-Modell hinterlegen.
+search_it_with_gpt_config_token_label = X-SearchItWithGpt-Token
+search_it_with_gpt_config_token_notice = Definiere einen API-Schlüssel, der für die Kommunikation mit der GPT-Schnittstelle verwendet wird. Diesen im GPT-Modell zusammen mit dem Header `X-SearchItWithGpt-Token` als API-Token hinterlegen.

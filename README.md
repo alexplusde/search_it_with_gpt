@@ -23,7 +23,7 @@ Erstelle ein eigenes GPT-Modell unter <https://chat.openai.com/gpts/editor> und 
 
 ### Authentifizierung
 
-* API Key: `Dein API-Key aus den Add-on-Einstellungen`, die Einstellungsseite des Add-ons befindet sich in REDAXO unter `Search it > Mit GPT`.
+* API Key: `Dein API-Key aus den Add-on-Einstellungen`, die Einstellungsseite des Add-ons befindet sich in REDAXO unter `Search it > OpenAPI für GPT`.
 * Custom: `X-SearchItWithGpt-Token`
 * Schema: (Das nachfolgende OpenAPI-Schema unten)
 * Privacy Policy: Eine passende Datenschutzseite, die den Zugriff regelt.
