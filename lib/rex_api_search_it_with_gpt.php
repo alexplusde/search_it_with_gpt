@@ -33,7 +33,7 @@ class rex_api_search_it_with_gpt extends rex_api_function
         }
 
         // Sicherstellen, dass der Content-Type Header gesetzt ist
-        header('Content-Type: application/json; charset=UTF-8');
+        // header('Content-Type: application/json; charset=UTF-8');
 
         // Suchanfrage über GET/POST Parameter 'search' erhalten
         $request = rex_request('search', 'string', null);
@@ -85,7 +85,7 @@ class rex_api_search_it_with_gpt extends rex_api_function
                     ];
                 }
             }
-            /*
+
             if ('url' == $hit['type'] && rex_request::get('url', 'string', false)) {
                 $article = rex_article::get($hit['fid']);
 
@@ -93,26 +93,33 @@ class rex_api_search_it_with_gpt extends rex_api_function
                 $url_sql = rex_sql::factory();
                 $url_sql->setTable(search_it_getUrlAddOnTableName());
                 $url_sql->setWhere(['url_hash' => $hit['fid']]);
-                if ($url_sql->select('article_id, clang_id, profile_id, data_id, seo')) {
+                if ($url_sql->select('article_id, clang_id, profile_id, data_id, seo, url')) {
                     if ($url_sql->getRows() > 0) {
-                        $hit_server = $server;
-                        if (rex_addon::get('yrewrite')->isAvailable()) {
-                            $hit_domain = rex_yrewrite::getDomainByArticleId($url_sql->getValue('article_id'), $url_sql->getValue('clang_id'));
-                            $hit_server = rtrim($hit_domain->getUrl(), '/');
+
+
+                        $url_hit = array_shift($url_sql->getArray());
+                        $url_seo = json_decode($url_hit['seo'], true);
+
+                        $rex_socket = rex_socket::factoryUrl($url_hit['url']);
+                        $rex_socket_response = $rex_socket->doGet();
+
+                        if (!$rex_socket_response->isOk()) {
+                            continue;
                         }
 
+                        $content = $rex_socket_response->getBody();
+
                         $formattedResults[] = [
-                            'title' => $url_info['title'],
-                            'url' => $hit_link,
-                            'teaser' => $hit['highlightedtext'],
-                            'content' => $content,
+                            'title' => $url_seo['title'],
+                            'url' => $url_hit['url'],
+                            'teaser' => strip_tags($url_seo['description']),
+                            'content' => preg_replace('/\s+/', ' ', strip_tags($content))
                         ];
                     }
                 } else {
                     continue;
                 }
             }
-            */
         }
 
         return $formattedResults;
