@@ -8,6 +8,8 @@ requires:
     php:
         version: '>8.1,<9'
     redaxo: ^5.16
+    package: 
+        search_it: '^6.10.0'
 
 pages:
     search_it/with_gpt:
@@ -24,7 +26,6 @@ pages:
                 title: translate:search_it_with_gpt_docs
                 subPath: README.md
                 icon: rex-icon fa-info-circle
-                itemclass: pull-right
                 perm: search_it_with_gpt[docs]
 
 default_config:
