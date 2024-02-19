@@ -1,6 +1,36 @@
 # search_it_with_gpt - Search It als Datenquelle für eigene GPTs von OpenAI
 
-## Features
+Mit diesem Add-on können eigene GPTs über eine passende OpenAPI mit Antworten aus den Suchergebnissen von Search It ergänzt werden.
+
+## Anforderungen
+
+* Search It ab Version 6.10.0
+* YRewrite ab Version 2.10.0
+* ChatGPT von OpenAI mit Plus-Abo
+
+Beteilige dich an der Weiterentwicklung des Addons unter <https://github.com/alexplusde/search_it_with_gpt>.
+
+## Installation
+
+Bei der Installation wird automatisch ein zufälliger API-Key generiert, der in der Einstellungs-Seite des Add-ons angezeigt wird. Dieser API-Key muss in der OpenAPI-Definition als Header `X-SearchItWithGpt-Token` übertragen werden.
+
+## Einrichtung
+
+> **Hinweis:** Derzeit werden keine URL-Suchtreffer unterstützt. Die Suche erfolgt nur über Article-Treffer der Seite.
+> **Hinweis:** Die Suche erfolgt nur über die aktuelle Sprache der Website.
+
+Erstelle ein eigenes GPT-Modell unter <https://chat.openai.com/gpts/editor> und wähle den Bereich "Configure". Dort kannst du ganz unten "Actions" hinzufügen. Erstelle eine Action mit folgenden Einstellungen:
+
+### Authentifizierung
+
+* API Key: `Dein API-Key aus den Add-on-Einstellungen`, die Einstellungsseite des Add-ons befindet sich in REDAXO unter `Search it > Mit GPT`.
+* Custom: `X-SearchItWithGpt-Token`
+* Schema: (Das nachfolgende OpenAPI-Schema unten)
+* Privacy Policy: Eine passende Datenschutzseite, die den Zugriff regelt.
+
+> **Hinweis:** Bitte beachte einen rechtskonformen Einsatz des GPT-Modells und die Einhaltung der Datenschutzbestimmungen. Diese sind möglicheweise anwaltlich zu prüfen.
+
+Anschließend kannst du die Action testen und erhältst die passenden Antworten aus den Suchergebnissen von Search It.
 
 ## OpenAPI-Schema
 
