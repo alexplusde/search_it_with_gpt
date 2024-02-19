@@ -61,13 +61,13 @@ class rex_api_search_it_with_gpt extends rex_api_function
                 $article = rex_article::get($hit['fid']);
                 $articleContent = new rex_article_content($article->getId());
                 $content = $articleContent->getArticle(1); // 1 ist die ID des Slices, den Sie abrufen möchten
-        
+
                 if ($article instanceof rex_article) {
                     $formattedResults[] = [
                         'title' => $hit['title'],
                         'url' => $hit['url'],
                         'teaser' => $hit['highlightedtext'],
-                        'content' => $content
+                        'content' => $content,
                     ];
                 }
             }
@@ -78,38 +78,37 @@ class rex_api_search_it_with_gpt extends rex_api_function
                 if ($article instanceof rex_article) {
                     $articleContent = new rex_article_content($article->getId());
                     $content = $articleContent->getArticle(1); // 1 ist die ID des Slices, den Sie abrufen möchten
-            
+
                     $formattedResults[] = [
                         'title' => $hit['title'],
                         'url' => $hit['url'],
                         'teaser' => $hit['highlightedtext'],
-                        'content' => $content
+                        'content' => $content,
                     ];
                 }
             }
             if ('url' == $hit['type']) {
                 // Erstellen eines rex_socket Objekts für die URL
                 $socket = rex_socket::factoryUrl($hit['url']);
-            
+
                 // Senden einer GET-Anfrage an die URL
                 $response = $socket->doGet();
-            
+
                 // Überprüfen, ob die Anfrage erfolgreich war
                 if ($response->isSuccessful()) {
                     // Abrufen des Inhalts aus der Antwort
                     $content = $response->getBody();
-            
+
                     $formattedResults[] = [
                         'title' => $hit['title'],
                         'url' => $hit['url'],
                         'teaser' => $hit['highlightedtext'],
-                        'content' => $content
+                        'content' => $content,
                     ];
                 } else {
                     continue;
                 }
             }
-            
         }
 
         return $formattedResults;
