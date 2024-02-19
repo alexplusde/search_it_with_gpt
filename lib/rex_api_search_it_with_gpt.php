@@ -95,14 +95,13 @@ class rex_api_search_it_with_gpt extends rex_api_function
                 $url_sql->setWhere(['url_hash' => $hit['fid']]);
                 if ($url_sql->select('article_id, clang_id, profile_id, data_id, seo, url')) {
                     if ($url_hit = array_shift($url_sql->getArray())) {
-
                         $url_seo = json_decode($url_hit['seo'], true);
 
                         $formattedResults[] = [
                             'title' => $url_seo['title'],
                             'url' => $url_hit['url'],
                             'teaser' => strip_tags($url_seo['description']),
-                            'content' => preg_replace('/\s+/', ' ', strip_tags($hit['unchangedtext']))
+                            'content' => preg_replace('/\s+/', ' ', strip_tags($hit['unchangedtext'])),
                         ];
                     }
                 } else {
