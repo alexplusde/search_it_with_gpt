@@ -1,7 +1,5 @@
 <?php
 
-namespace alexplusde\search_it_with_gpt;
-
 use rex;
 use rex_api_function;
 use rex_config;
