@@ -1,16 +1,12 @@
-blaupause_title = Blaupause
+search_it_with_gpt_title = search_it_with_gpt
 
-blaupause_table = Blaupause
-blaupause_settings = Einstellungen
-blaupause_docs = Hilfe
+search_it_with_gpt_table = search_it_with_gpt
+search_it_with_gpt_settings = Einstellungen
+search_it_with_gpt_docs = Hilfe
 
 # FriendsOfREDAXO-Addons können bei YTraduco zur Übersetzung eingereicht werden
 
 # Konfigurationsformulare
-blaupause_config = Einstellungen
-blaupause_config_mytextfield_label = Test-Feld
-blaupause_config_mytextfield_notice = Notiz, die etwas erklärt und bspw. einen Standardwert nennt. Hier: <code>Test</code>
-
-# YForm Tabellen-Übersetzung
-blaupause_table_name_label = Name
-blaupause_table_name_notice = Notiz, die etwas erklärt und auch einen Beispielwert nennen kann, z.B.: <code>Mein Name</code> 
+search_it_with_gpt_config = Einstellungen
+search_it_with_gpt_config_api_key_label = API-Schlüssel
+search_it_with_gpt_config_api_key_notice = Definiere einen API-Schlüssel, der für die Kommunikation mit der GPT-Schnittstelle verwendet wird. Diesen im GPT-Modell hinterlegen.
