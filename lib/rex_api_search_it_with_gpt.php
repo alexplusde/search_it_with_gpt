@@ -1,6 +1,5 @@
 <?php
 
-use rex;
 use rex_api_function;
 use rex_article;
 use rex_article_content;
@@ -15,7 +14,6 @@ class rex_api_search_it_with_gpt extends rex_api_function
 
     public function execute()
     {
-
         if (!rex_server('HTTP_X_SEARCHITWITHGPT_TOKEN')) {
             header('HTTP/1.0 401 Unauthorized');
             echo 'Authentifizierung erforderlich';
