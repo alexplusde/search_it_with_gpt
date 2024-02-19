@@ -21,7 +21,6 @@ pages:
             settings:
                 title: translate:search_it_with_gpt_settings
                 icon: rex-icon fa-gear
-                itemclass: pull-right
                 perm: admin
             docs:
                 title: translate:search_it_with_gpt_docs
