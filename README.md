@@ -8,11 +8,11 @@
 openapi: 3.0.0
 info:
   title: SearchItExtensionAPI
-  description: Stellt zusätzliche Informationen anhand der Kundenwebsite-Suchfunktion bereit.
+  description: Stellt zusätzliche Informationen anhand der Website-Suchfunktion bereit.
   version: 1.0.0
 servers:
-  - url: https://example.org/ # Hier die URL der Website eintragen
-    description: Website # Hier den Betreiber der Website eintragen
+  - url: https://example.org/ # URL anpassen
+    description: Website # Beschreibung anpassen
 paths:
   /:
     get:
@@ -34,11 +34,11 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Eine Liste von Suchergebnissen.
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   status:
@@ -49,7 +49,7 @@ paths:
                     description: Anzahl der gefundenen Ergebnisse.
                   results:
                     type: array
-                    items: 
+                    items:
                       type: object
                       properties:
                         title:
@@ -64,6 +64,25 @@ paths:
                         content:
                           type: string
                           description: Der gesamte Inhalt des Suchergebnisses.
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    SearchResult:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        teaser:
+          type: string
+        content:
+          type: string
+security:
+  - BearerAuth: []
 ```
 
 ### Einstellungs-Seite
