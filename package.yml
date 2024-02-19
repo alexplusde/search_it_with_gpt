@@ -35,7 +35,7 @@ pages:
                 perm: search_it_with_gpt[docs]
 
 default_config:
-    api_key: ''
+    token: ''
 
 installer_ignore:
 - .DS_Store
