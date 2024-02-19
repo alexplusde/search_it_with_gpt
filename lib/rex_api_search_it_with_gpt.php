@@ -1,13 +1,10 @@
 <?php
 
 use rex;
-use rex_addon;
 use rex_api_function;
 use rex_article;
 use rex_article_content;
 use rex_config;
-use rex_request;
-use rex_sql;
 use rex_yrewrite;
 use rex_yrewrite_seo;
 use search_it;
@@ -18,14 +15,18 @@ class rex_api_search_it_with_gpt extends rex_api_function
 
     public function execute()
     {
-        if (!rex_server('HTTP_AUTHORIZATION')) {
+        rex::setProperty('debug', true);
+
+        if (!rex_server('HTTP_X_SEARCHITWITHGPT_TOKEN')) {
             header('HTTP/1.0 401 Unauthorized');
             echo 'Authentifizierung erforderlich';
             exit;
         }
-        // Extrahieren des Tokens aus dem Authorization Header
-        [$tokenType, $token] = explode(' ', rex_server('HTTP_AUTHORIZATION'), 2);
-        if (0 != strcasecmp($tokenType, 'Bearer') || $token !== rex_config::get('search_it_with_gpt', 'token')) {
+
+        // Extrahieren des Tokens aus dem X-SearchItWithGpt-Token Header
+        $token = rex_server('HTTP_X_SEARCHITWITHGPT_TOKEN');
+
+        if ($token !== rex_config::get('search_it_with_gpt', 'token')) {
             header('HTTP/1.0 403 Forbidden');
             echo 'Ungültiger API-Key';
             exit;
@@ -68,24 +69,23 @@ class rex_api_search_it_with_gpt extends rex_api_function
     {
         $formattedResults = [];
 
-        $server = rtrim(rex::getServer(), '/');
-
         foreach ($hits as $hit) {
             if ('article' == $hit['type']) {
                 $article = rex_article::get($hit['fid']);
 
                 if ($article instanceof rex_article) {
-                    $yrewrite = new rex_yrewrite_seo($article);
+                    $yrewrite = new rex_yrewrite_seo($article->getId());
                     $articleContent = new rex_article_content($article->getId());
                     $content = $articleContent->getArticle();
                     $formattedResults[] = [
-                        'title' => $yrewrite->getTitle('name'),
-                        'url' => rex_yrewrite::getFullPath(rex_getUrl($hit['fid'], $hit['clang'])),
+                        'title' => $yrewrite->getTitle(),
+                        'url' => rex_yrewrite::getFullPath(ltrim(rex_getUrl($hit['fid'], $hit['clang']), '/')),
                         'teaser' => $hit['highlightedtext'],
-                        'content' => $content,
+                        'content' => $hit['plaintext'],
                     ];
                 }
             }
+            /*
             if ('url' == $hit['type'] && rex_request::get('url', 'string', false)) {
                 $article = rex_article::get($hit['fid']);
 
@@ -112,6 +112,7 @@ class rex_api_search_it_with_gpt extends rex_api_function
                     continue;
                 }
             }
+            */
         }
 
         return $formattedResults;

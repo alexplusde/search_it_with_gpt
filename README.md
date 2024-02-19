@@ -12,7 +12,7 @@ info:
   version: 1.0.0
 servers:
   - url: https://example.org/ # URL anpassen
-    description: Website # Beschreibung anpassen
+    description: Stellt zusätzliche Informationen der Website +++Unternehmensname+++ als Suchergebnisse zur Verfügung # Unternehmensname anpassen
 paths:
   /:
     get:
@@ -66,9 +66,10 @@ paths:
                           description: Der gesamte Inhalt des Suchergebnisses.
 components:
   securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
+    ApiKeyAuth: # Geändert von BearerAuth zu ApiKeyAuth
+      type: apiKey
+      in: header # Der API-Key wird im Header übertragen
+      name: X-SearchItWithGpt-Token # Name des Headers
   schemas:
     SearchResult:
       type: object
@@ -82,7 +83,26 @@ components:
         content:
           type: string
 security:
-  - BearerAuth: []
+components:
+  securitySchemes:
+    ApiKeyAuth: 
+      type: apiKey
+      in: header
+      name: X-SearchItWithGpt-Token
+  schemas:
+    SearchResult:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        teaser:
+          type: string
+        content:
+          type: string
+security:
+  - ApiKeyAuth: []
 ```
 
 ### Einstellungs-Seite
