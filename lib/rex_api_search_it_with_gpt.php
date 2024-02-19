@@ -82,7 +82,6 @@ class rex_api_search_it_with_gpt extends rex_api_function
                 $url_sql->setWhere(['url_hash' => $hit['fid']]);
                 if ($url_sql->select('article_id, clang_id, profile_id, data_id, seo')) {
                     if ($url_sql->getRows() > 0) {
-
                         $hit_server = $server;
                         if (rex_addon::get('yrewrite')->isAvailable()) {
                             $hit_domain = rex_yrewrite::getDomainByArticleId($url_sql->getValue('article_id'), $url_sql->getValue('clang_id'));
