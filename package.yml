@@ -15,18 +15,18 @@ requires:
 pages:
     search_it/with_gpt:
         title: translate:search_it_with_gpt_title
-        icon: rex-icon fa-gear
-        perm: search_it_with_gpt[]
+        icon: rex-icon fa-robot
+        perm: admin
         subpages:
             settings:
                 title: translate:search_it_with_gpt_settings
-                icon: rex-icon fa-gear
+                icon: rex-icon fa-robot
                 perm: admin
             docs:
                 title: translate:search_it_with_gpt_docs
                 subPath: README.md
                 icon: rex-icon fa-info-circle
-                perm: search_it_with_gpt[docs]
+                perm: admin
 
 default_config:
     token: ''
