@@ -13,7 +13,7 @@ class rex_api_search_it_with_gpt extends rex_api_function
         $request = rex_request('search', 'string', null);
 
         // Prüfen, ob eine Suchanfrage vorhanden ist
-        if ($request === null) {
+        if (null === $request) {
             http_response_code(400); // Bad Request
             echo json_encode(['status' => false, 'message' => 'Suchbegriff fehlt.']);
             exit;
@@ -30,14 +30,13 @@ class rex_api_search_it_with_gpt extends rex_api_function
             echo json_encode([
                 'status' => true,
                 'count' => $result['count'],
-                'results' => $formattedResults
+                'results' => $formattedResults,
             ]);
             exit;
-        } else {
-            // Keine Ergebnisse gefunden
-            echo json_encode(['status' => true, 'count' => 0, 'message' => 'Keine Ergebnisse gefunden.']);
-            exit;
         }
+        // Keine Ergebnisse gefunden
+        echo json_encode(['status' => true, 'count' => 0, 'message' => 'Keine Ergebnisse gefunden.']);
+        exit;
     }
 
     private function formatResults($hits)
@@ -45,13 +44,13 @@ class rex_api_search_it_with_gpt extends rex_api_function
         $formattedResults = [];
 
         foreach ($hits as $hit) {
-            if ($hit['type'] == 'article') {
+            if ('article' == $hit['type']) {
                 $article = rex_article::get($hit['fid']);
                 if ($article instanceof rex_article) {
                     $formattedResults[] = [
                         'title' => $article->getName(),
                         'url' => rex_getUrl($hit['fid'], $hit['clang']),
-                        'teaser' => $hit['highlightedtext']
+                        'teaser' => $hit['highlightedtext'],
                     ];
                 }
             }
