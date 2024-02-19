@@ -9,6 +9,7 @@ requires:
         version: '>8.1,<9'
     redaxo: ^5.16
     package: 
+        yrewrite: '^2.10.0'
         search_it: '^6.10.0'
 
 pages:
