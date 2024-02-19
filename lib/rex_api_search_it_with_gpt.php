@@ -1,15 +1,16 @@
 <?php
 
 use rex;
+use rex_addon;
 use rex_api_function;
-use rex_config;
-use search_it;
 use rex_article;
 use rex_article_content;
-use rex_sql;
-use rex_addon;
-use rex_yrewrite;
+use rex_config;
 use rex_request;
+use rex_sql;
+use rex_yrewrite;
+use rex_yrewrite_seo;
+use search_it;
 
 class rex_api_search_it_with_gpt extends rex_api_function
 {
@@ -72,9 +73,9 @@ class rex_api_search_it_with_gpt extends rex_api_function
         foreach ($hits as $hit) {
             if ('article' == $hit['type']) {
                 $article = rex_article::get($hit['fid']);
-                
+
                 if ($article instanceof rex_article) {
-                    $yrewrite = new \rex_yrewrite_seo($article);
+                    $yrewrite = new rex_yrewrite_seo($article);
                     $articleContent = new rex_article_content($article->getId());
                     $content = $articleContent->getArticle();
                     $formattedResults[] = [
@@ -90,7 +91,7 @@ class rex_api_search_it_with_gpt extends rex_api_function
 
                 // url hits
                 $url_sql = rex_sql::factory();
-                $url_sql->setTable(\search_it_getUrlAddOnTableName());
+                $url_sql->setTable(search_it_getUrlAddOnTableName());
                 $url_sql->setWhere(['url_hash' => $hit['fid']]);
                 if ($url_sql->select('article_id, clang_id, profile_id, data_id, seo')) {
                     if ($url_sql->getRows() > 0) {
