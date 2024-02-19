@@ -28,7 +28,7 @@ Erstelle ein eigenes GPT-Modell unter <https://chat.openai.com/gpts/editor> und 
 * Schema: (Das nachfolgende OpenAPI-Schema unten)
 * Privacy Policy: Eine passende Datenschutzseite, die den Zugriff regelt.
 
-> **Hinweis:** Bitte beachte einen rechtskonformen Einsatz des GPT-Modells und die Einhaltung der Datenschutzbestimmungen. Diese sind möglicheweise anwaltlich zu prüfen.
+> **Hinweis:** Bitte beachte einen rechtskonformen Einsatz des GPT-Modells und die Einhaltung der Datenschutzbestimmungen. Diese sind möglicherweise anwaltlich zu prüfen.
 
 Anschließend kannst du die Action testen und erhältst die passenden Antworten aus den Suchergebnissen von Search It.
 
